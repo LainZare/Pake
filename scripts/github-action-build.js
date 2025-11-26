@@ -10,7 +10,7 @@ import { execa } from "execa";
 // Environment variables expected from GitHub Actions
 const ENV_VARS = {
   required: ["URL", "NAME", "HEIGHT", "WIDTH"],
-  optional: ["ICON", "FULLSCREEN", "HIDE_TITLE_BAR", "MULTI_ARCH", "TARGETS"],
+  optional: ["ICON", "PROXY_URL", "SHOW_SYSTEM_TRAY", "HIDE_ON_CLOSE", "ENABLE_DRAG_DROP", "MULTI_INSTANCE", "FULLSCREEN", "HIDE_TITLE_BAR", "MULTI_ARCH", "TARGETS"],
 };
 
 // Platform-specific configurations
@@ -120,6 +120,18 @@ class PakeBuildManager {
       params.push("--fullscreen");
     }
 
+    if (process.env.HIDE_ON_CLOSE === "true") {
+      params.push("--hide-on-close");
+    }
+
+    if (process.env.ENABLE_DRAG_DROP === "true") {
+      params.push("--enable-drag-drop");
+    }
+
+    if (process.env.MULTI_INSTANCE === "true") {
+      params.push("--multi-instance");
+    }
+
     if (this.config.supportsMultiArch && process.env.MULTI_ARCH === "true") {
       params.push("--multi-arch");
     }
@@ -130,6 +142,10 @@ class PakeBuildManager {
 
     if (this.config.needsSystemTray) {
       params.push("--show-system-tray");
+    }
+
+    if (process.env.PROXY_URL?.trim()) {
+      params.push("--proxy-url", process.env.PROXY_URL);
     }
 
     // Icon handling
