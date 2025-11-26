@@ -25,6 +25,9 @@ on:
       icon:
         description: "Icon, Image URL, Optional"
         required: false
+      proxy_url:
+        description: "proxy-url, Optional"
+        required: false
       width:
         description: "Width, Optional"
         required: false
@@ -35,6 +38,26 @@ on:
         default: "780"
       fullscreen:
         description: "Fullscreen, At startup, Optional"
+        required: false
+        type: boolean
+        default: false
+      show_system_tray:
+        description: "show-system-tray, Optional"
+        required: false
+        type: boolean
+        default: false
+      hide_on_close:
+        description: "hide-on-close, Optional"
+        required: false
+        type: boolean
+        default: false
+      enable_drag_drop:
+        description: "enable-drag-drop, Optional"
+        required: false
+        type: boolean
+        default: false
+      multi_instance:
+        description: "multi-instance, Optional"
         required: false
         type: boolean
         default: false
@@ -120,8 +143,13 @@ jobs:
           URL: ${{ inputs.url }}
           NAME: ${{ inputs.name }}
           ICON: ${{ inputs.icon }}
+          PROXY_URL: ${{ inputs.proxy_url }}
           HEIGHT: ${{ inputs.height }}
           WIDTH: ${{ inputs.width }}
+          SHOW_SYSTEM_TRAY: ${{ inputs.show_system_tray }}
+          HIDE_ON_CLOSE: ${{ inputs.hide_on_close }}
+          ENABLE_DRAG_DROP: ${{ inputs.enable_drag_drop }}
+          MULTI_INSTANCE: ${{ inputs.multi_instance }}
           HIDE_TITLE_BAR: ${{ inputs.hide_title_bar }}
           FULLSCREEN: ${{ inputs.fullscreen }}
           MULTI_ARCH: ${{ inputs.multi_arch }}
